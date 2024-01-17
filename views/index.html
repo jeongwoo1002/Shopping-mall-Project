@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>쇼핑몰 CEO</title>
+</head>
+
+<script language="javascript">
+    function destroy() {
+        alert('탈퇴 되었습니다.');
+    }
+</script>
+
+<body>
+
+{% if user %}
+    {% if user.userId == 'admin' %}
+    <h2>관리자 페이지</h2>
+    <button type = "button" onclick="location.href='http://localhost:{{port}}/user/logout'">로그아웃</button>
+    <br>
+
+    <form id="form" action="http://localhost:{{port}}/product" method="get">
+        <button style="height:40px;width: 157px" type="submit">상품 등록</button>
+    </form>
+
+
+    {% else %}
+
+    {{user.name}}님 환영합니다!<br>
+
+    <form id="form" action="http://localhost:{{port}}/user/delete" method="get">
+        <button type="submit" onclick=destroy()>회원탈퇴</button>
+        <button type = "button" onclick="location.href='http://localhost:{{port}}/user/logout'">로그아웃</button>
+    </form>
+
+    <br><br>
+    <form id="form" action="/info/{{user.userId}}" method="get">
+        <button style="height:40px;width: 157px" type="submit">회원 추가 정보 관리</button>
+    </form>
+
+    <br>
+    <form id="form" action="http://localhost:{{port}}/purchase/{{user.userId}}" method="get">
+        <button style="height:40px;width: 157px" type="submit">상품 구매</button>
+    </form>
+
+    <br>
+    <form id="form" action="http://localhost:{{port}}/purchase/get-payment/{{user.userId}}" method="get">
+        <button style="height:40px;width: 157px" type="submit">구매 내역</button>
+    </form>
+
+    {% endif %}
+{% else %}
+
+    <form id="form" action="/user/login" method="post">
+        일반 로그인 <br>
+        <input style = "width: 150px" type="text" name="userId" placeholder="ID" required/><br>
+        <input style = "width: 150px" type="text" name="password" placeholder="Password" required/><br>
+        <button style = "width: 157px" type="submit">로그인</button><br><br>
+    </form>
+
+    <form id="form" action="http://localhost:{{port}}/user/kakao" method="get">
+        <button style="width: 157px" type="submit">카카오톡으로 로그인</button><br>
+    </form>
+
+    <br>
+    <form id="form" action="http://localhost:{{port}}/user/sign-up" method="get">
+        <button style="width: 157px" type="submit">회원가입</button><br>
+    </form>
+{% endif %}
+
+</body>
+</html>

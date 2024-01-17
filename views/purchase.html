@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>쇼핑몰 CEO</title>
+</head>
+
+<body>
+
+    회원: {{name}}<br><br>
+
+    <button style="width: 60px" type="button" onclick="location.href='http://localhost:{{port}}'" >홈으로</button>
+
+
+    {% for product in products %}
+
+    <form id="form" action="/purchase" method="get">
+        <div style="height:80px;width:200px; border: 1px solid #ccc; padding: 10px;">
+            물품이름: {{product.name}} <br>
+            수량: {{product.quantity}} <br>
+            가격: {{product.price}} <br>
+        </div>
+        <br>
+    </form>
+
+    <form id="form" action="http://localhost:{{port}}/purchase/payment/{{product.productId}}" method="get">
+        <button style="width: 200px" type="submit" >상품 구매하기</button>
+    </form>
+
+    {% endfor %}
+
+</body>
+
+</html>

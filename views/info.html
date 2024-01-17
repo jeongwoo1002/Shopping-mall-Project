@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>쇼핑몰 CEO</title>
+</head>
+<script language="javascript">
+    function delete_info() {
+        alert(`회원님의 정보가 삭제되었습니다.`);
+    }
+</script>
+
+<body>
+    회원: {{name}}<br><br>
+
+    <button style="width: 60px" type="button" onclick="location.href='http://localhost:{{port}}'" >홈으로</button>
+
+
+    <form id="form" action="http://localhost:{{port}}/info/create/{{userId}}" method="post">
+        회원 상세 정보 추가<br>
+        <input style="width:200px" type="text" name="address" placeholder="주소" required/><br>
+        <input style="width:200px" type="text" name="number" placeholder="전화번호" /><br>
+
+        <button style="width:200px" type="submit">추가</button><br><br><br>
+    </form>
+
+
+    {% for info in infos %}
+
+    <form id="form" action="/info/{{info.userId}}" method="get">
+        <div style="height:80px;width:200px; border: 1px solid #ccc; padding: 10px;">
+            주소: {{info.address}} <br>
+            전화번호: {{info.number}} <br>
+        </div>
+        <br>
+    </form>
+
+    <form id="form" action="http://localhost:{{port}}/info/update/{{info.infoId}}" method="get">
+        <button style="width: 200px" type="submit" >상세 정보 수정하기</button>
+    </form>
+
+    <form id="form" action="http://localhost:{{port}}/info/delete/{{info.infoId}}" method="get">
+        <button style="width: 200px" type="submit" onclick=delete_info() >상세 정보 삭제하기</button><br><br>
+    </form>
+    {% endfor %}
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>쇼핑몰 CEO</title>
+</head>
+
+<body>
+
+<button style="width: 60px" type="button" onclick="location.href='http://localhost:{{port}}'" >홈으로</button>
+
+<form id="form" action="" method="post" onsubmit="return checkQuantity();">
+
+    <h1>상품 구매하기</h1>
+
+    <div style="height:80px;width:200px; border: 1px solid #ccc; padding: 10px;">
+        물품이름: {{product.name}} <br>
+        수량: {{product.quantity}} <br>
+        가격: {{product.price}} <br>
+    </div>
+    <input type="hidden" id="productQuantity" value="{{product.quantity}}">
+    <br>
+
+    <p>구매할 개수</p>
+    <input style="width: 150px" type="number" id="quantity" name="quantity" placeholder="quantity" required/><br>
+    <button style="width:200px" type="submit">구매하기</button><br><br><br>
+</form>
+
+<script>
+    function checkQuantity() {
+        var enteredQuantity = parseInt(document.getElementById('quantity').value, 10);
+        var productQuantity = parseInt(document.getElementById('productQuantity').value, 10);
+
+        if (enteredQuantity > productQuantity) {
+            alert("구매할 수량이 재고보다 많습니다.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+
+</html>

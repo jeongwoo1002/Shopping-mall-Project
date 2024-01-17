@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>쇼핑몰 CEO</title>
+</head>
+
+
+<script language="javascript">
+    function delete_info() {
+        alert(`물품 정보가 삭제되었습니다.`);
+    }
+</script>
+
+<body>
+
+    <button style="width: 60px" type="button" onclick="location.href='http://localhost:{{port}}'" >홈으로</button>
+
+        <form id="form" action="http://localhost:{{port}}/product/create" method="post">
+            물품등록<br>
+            <input type="text" name="name" placeholder="Name" /><br>
+            <input type="number" name="quantity" placeholder="Quantity" /><br>
+            <input type="text" name="price" placeholder="Price" /><br>
+            <button style="width: 200px; height: 40px" type="submit">물품 등록하기</button>
+        </form>
+
+        <br>
+
+        {% for product in products %}
+
+        <form id="form" action="/product" method="get">
+            <div style="height:80px;width:200px; border: 1px solid #ccc; padding: 10px;">
+                물품이름: {{product.name}} <br>
+                수량: {{product.quantity}} <br>
+                가격: {{product.price}} <br>
+            </div>
+            <br>
+        </form>
+
+        <form id="form" action="http://localhost:{{port}}/product/update/{{product.productId}}" method="get">
+            <button style="width: 200px" type="submit" >물품 정보 수정하기</button>
+        </form>
+
+        <form id="form" action="http://localhost:{{port}}/product/delete/{{product.productId}}" method="get">
+            <button style="width: 200px" type="submit" onclick=delete_info() >물품 정보 삭제하기</button><br><br>
+        </form>
+        {% endfor %}
+
+</body>
+
+</html>
